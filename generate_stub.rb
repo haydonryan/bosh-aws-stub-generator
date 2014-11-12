@@ -7,10 +7,10 @@ require 'yaml'
 
 placeholders = {
 "placeholder_name"                                 => "hnrglobal",    # The Name of the Cloud Foundry install
-"placeholder_domain"                               => "cloud.hnrglobal.com",             # domain ie cloud.example.com
+#"placeholder_domain"                               => "cloud.hnrglobal.com",             # domain ie cloud.example.com
 "placeholder_director_uuid"                        => "",             # The director UUID - run 'bosh status' to get the UUID
-"placeholder_subnet_for_cf1"                       => "todo",
-"placeholder_subnet_for_cf2"                       => "todo",
+#"placeholder_subnet_for_cf1"                       => "todo",
+#"placeholder_subnet_for_cf2"                       => "todo",
 #"placeholder_access_key_id"                        => "",             # AWS Access Key
 #"placeholder_secret_key"                           => '',             # AWS Secret Key
 #"placeholder_subnet_for_az1"                       => '',             # Get this value from AWS Console ie subnet-679a7c10
