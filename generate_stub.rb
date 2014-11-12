@@ -2,6 +2,7 @@
 
 require 'erb'
 require 'ostruct'
+require 'openssl'
 
 placeholders = {
 "placeholder_name"                                 => "hnrglobal",    # The Name of the Cloud Foundry install
@@ -36,8 +37,6 @@ placeholders = {
 #"placeholder_router_status_user"                   => '',
 #"placeholder_router_status_password"               => '',
 #:placeholder_loggregator_secret                    => "",
-
-
 #:placeholder_buildpacks_key                        => "",
 #:placeholder_resource_directory_key                => "",
 #:placeholder_app_package_directory_key             => "",
