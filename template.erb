@@ -64,6 +64,18 @@
       bulk_api_password: <%= placeholder_bulk_api_password %>
       staging_upload_password: <%= placeholder_staging_upload_password  %>
       staging_upload_user: <%= placeholder_staging_upload_user %>
+      # Note directory keys need to be expressly placed here as AWS does not
+      #support key names with the period character '.'
+      buildpacks:
+        buildpack_directory_key: <%= placeholder_buildpacks_key %>
+      resource_pool:
+        resource_directory_key: <%= placeholder_resource_directory_key %>
+      packages:
+        app_package_directory_key: <%= placeholder_app_package_directory_key %>
+      droplets:
+        droplet_directory_key: <%= placeholder_droplets_directory_key %>
+      #
+
 
     uaa:
       scim:

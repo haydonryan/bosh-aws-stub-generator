@@ -5,12 +5,12 @@ require 'ostruct'
 
 placeholders = {
 "placeholder_name"                                 => "hnrglobal",    # The Name of the Cloud Foundry install
+"placeholder_domain"                               => "cloud.hnrglobal.com",             # domain ie cloud.example.com
 "placeholder_director_uuid"                        => "",             # The director UUID - run 'bosh status' to get the UUID
 "placeholder_access_key_id"                        => "",             # AWS Access Key
 "placeholder_secret_key"                           => '',             # AWS Secret Key
 "placeholder_subnet_for_az1"                       => '',             # Get this value from AWS Console ie subnet-679a7c10
 "placeholder_subnet_for_az2"                       => '',             # Get this value from AWS Console ie subnet-679a7c10
-"placeholder_domain"                               => '',             # domain ie cloud.example.com
 "placeholder_uaa_cert"                             => '', 
 "placeholder_uaa_jwt_signing_key"                  => '',              # Use the YAML "|" character to format multiline RSA key data
 "placeholder_uaa_jwt_verification_key"             => '',              # Use the YAML "|" character to format multiline RSA key data
@@ -35,7 +35,13 @@ placeholders = {
 #"placeholder_uaa_cc_client_secret"                 => '',
 #"placeholder_router_status_user"                   => '',
 #"placeholder_router_status_password"               => '',
-#:placeholder_loggregator_secret                    => "" 
+#:placeholder_loggregator_secret                    => "",
+
+
+#:placeholder_buildpacks_key                        => "",
+#:placeholder_resource_directory_key                => "",
+#:placeholder_app_package_directory_key             => "",
+#:placeholder_droplets_directory_key                => ""
 }
 
 class ErbBinding < OpenStruct
@@ -49,10 +55,6 @@ def generatePassword ()
   string = (0...20).map { o[rand(o.length)] }.join
   return string
 end
-
-
-
-
 
 placeholders["placeholder_nats_password"] = generatePassword() 
 placeholders["placeholder_nats_user"] = generatePassword() 
@@ -74,6 +76,15 @@ placeholders["placeholder_uaa_cc_client_secret"] = generatePassword()
 placeholders["placeholder_router_status_user"] = generatePassword()
 placeholders["placeholder_router_status_password"] = generatePassword()
 placeholders["placeholder_loggregator_secret"] = generatePassword()
+
+
+
+# todo take domain name and change . to - and append 
+
+placeholders["placeholder_buildpacks_key"] = placeholders["placeholder_domain"].gsub('.','-') + "-buildpacks"
+placeholders["placeholder_resource_directory_key"] = placeholders["placeholder_domain"].gsub('.','-')  + "-resources"
+placeholders["placeholder_app_package_directory_key"] = placeholders["placeholder_domain"].gsub('.','-')  + "-packages"
+placeholders["placeholder_droplets_directory_key"] = placeholders["placeholder_domain"].gsub('.','-')  + "-droplets"
 
 
 
