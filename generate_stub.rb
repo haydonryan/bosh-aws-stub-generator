@@ -70,6 +70,20 @@ def generatePassword ()
   return string
 end
 
+#
+#check for correct parameters
+#
+
+if ( ARGV.count != 1)
+  print "USAGE: ruby generate_stub.rb deployment_name\n"
+  exit(1)
+
+end
+
+
+placeholders["placeholder_name"] = ARGV[0]
+
+
 placeholders["placeholder_nats_password"] = generatePassword() 
 placeholders["placeholder_nats_user"] = generatePassword() 
 placeholders["placeholder_cc_db_encryption_key"] = generatePassword() 
