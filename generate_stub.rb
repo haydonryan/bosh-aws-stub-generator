@@ -3,6 +3,7 @@
 require 'erb'
 require 'ostruct'
 require 'openssl'
+require 'yaml'
 
 placeholders = {
 "placeholder_name"                                 => "hnrglobal",    # The Name of the Cloud Foundry install
@@ -105,10 +106,47 @@ public_key = rsa_key.public_key.to_pem
 private_key =  rsa_key.to_pem
 
 # Format Keys for use in stub
-private_key = private_key.gsub("\n","\n          ")
-public_key = public_key.gsub("\n","\n          ")
-placeholders["placeholder_uaa_jwt_signing_key"]       = " |\n          " + private_key
-placeholders["placeholder_uaa_jwt_verification_key"]  = " |\n          " + public_key
+private_key = private_key.gsub("\n","\n        ")
+private_key = private_key.gsub(/(\n        )$/,"\n")            #remove errant whitespace at the end of the sub
+public_key = public_key.gsub("\n","\n        ")
+public_key = public_key.gsub(/(\n        )$/,"\n")            #remove errant whitespace at the end of the sub
+placeholders["placeholder_uaa_jwt_signing_key"]       = " |\n        " + private_key
+placeholders["placeholder_uaa_jwt_verification_key"]  = " |\n        " + public_key
+
+# Load AWS RDS receipt into placeholder
+rds = YAML.load_file('aws_rds_receipt.yml')["deployment_manifest"]["properties"]
+ccdb = rds["ccdb"]
+uaadb = rds["uaadb"]
+
+#print "cCDB:\n" + ccdb.to_yaml
+#print "\n"
+
+#print "uAAdb:\n" + uaadb.to_yaml
+#print "\n"
+
+uaadb_fragment = uaadb.to_yaml.gsub("---\n","");
+uaadb_fragment = "\n      " + uaadb_fragment.gsub("\n","\n      ") #indent text to correct YML position 
+uaadb_fragment = uaadb_fragment.gsub(/(\n      )$/,"")            #remove errant whitespace at the end of the sub
+ccdb_fragment = ccdb.to_yaml.gsub("---\n","");
+ccdb_fragment = "\n      " + ccdb_fragment.gsub("\n","\n      ")  #indent text to correct YML position  
+ccdb_fragment = ccdb_fragment.gsub(/(\n      )$/,"")              #remove errant whitespace at the end of the sub
+
+
+placeholders["placeholder_uaadb_properties"] = uaadb_fragment
+placeholders["placeholder_ccdb_properties"] = ccdb_fragment
+
+#print rds.to_yaml
+#YAML.dump(rds)
+
+
+
+
+
+
+
+
+
+
 
 # Process ERB template
 vars = ErbBinding.new(placeholders)
