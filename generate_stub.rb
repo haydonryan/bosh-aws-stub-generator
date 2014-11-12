@@ -76,52 +76,29 @@ placeholders["placeholder_router_status_user"] = generatePassword()
 placeholders["placeholder_router_status_password"] = generatePassword()
 placeholders["placeholder_loggregator_secret"] = generatePassword()
 
-
-
-# todo take domain name and change . to - and append 
-
+# Generate Bucket Names for AWS
+# Take domain name and change . to - and append the key type (Note: this is
+# because AWS does not support the . character in bucket names)
 placeholders["placeholder_buildpacks_key"] = placeholders["placeholder_domain"].gsub('.','-') + "-buildpacks"
 placeholders["placeholder_resource_directory_key"] = placeholders["placeholder_domain"].gsub('.','-')  + "-resources"
 placeholders["placeholder_app_package_directory_key"] = placeholders["placeholder_domain"].gsub('.','-')  + "-packages"
 placeholders["placeholder_droplets_directory_key"] = placeholders["placeholder_domain"].gsub('.','-')  + "-droplets"
 
+# Generate RSA Keys for JWT
+rsa_key = OpenSSL::PKey::RSA.new(2048)
+public_key = rsa_key.public_key.to_pem
+private_key =  rsa_key.to_pem
 
+# Format Keys for use in stub
+private_key = private_key.gsub("\n","\n          ")
+public_key = public_key.gsub("\n","\n          ")
+placeholders["placeholder_uaa_jwt_signing_key"]       = " |\n          " + private_key
+placeholders["placeholder_uaa_jwt_verification_key"]  = " |\n          " + public_key
 
-
-
-
-
-
-
-
-
-
-
+# Process ERB template
 vars = ErbBinding.new(placeholders)
-
-template = "foo <%= bar %>"
 template = File.read("./template.erb")
 erb = ERB.new(template)
 
 vars_binding = vars.send(:get_binding)
 puts erb.result(vars_binding)
-
-
-
-
-#ns = Namespace.new(placeholders)
-#print ERB.new(template).result(ns.instance_eval { binding })
-
-
-#puts placeholders
-
-#new_file = File.open("./result.txt", "w+")
-#puts ErbalT::render_from_hash(template, placeholders)
-#new_file.close
-
-#puts placeholders["PLACEHOLDER_LOGGREGATOR_SECRET"]
-
-#foo = Foo.new
-#foo.PLACEHOLDER_NATS_PASSWORD = "Hello"
-#new_file << ERB.new(template).result(foo.template_binding)
-#new_file.close
