@@ -1,0 +1,117 @@
+A is: <%= @a %>
+  ---
+  name: <%= @PLACEHOLDER_NAME %>
+  director_uuid: <%= @PLACEHOLDER_DIRECTOR_UUID %>
+  releases:
+    - name: cf
+      version: latest  
+  
+  networks:
+  - name: cf1
+  type: manual
+  subnets:
+  - range: 10.10.16.0/20
+    name: default_unused
+    reserved:
+    - 10.10.16.2 - 10.10.16.9
+    static:
+    - 10.10.16.10 - 10.10.16.253
+    gateway: 10.10.16.1
+    dns:
+    - 10.10.0.2
+    cloud_properties:
+      security_groups:
+      - cf
+      subnet: (( properties.template_only.aws.subnet_ids.cf1 ))
+  
+  - name: cf2
+    type: manual
+    subnets:
+    - range: 10.10.80.0/20
+      name: default_unused
+      reserved:
+      - 10.10.80.2 - 10.10.80.9
+      static:
+      - 10.10.80.10 - 10.10.80.253
+      gateway: 10.10.80.1
+      dns:
+      - 10.10.0.2
+      cloud_properties:
+        security_groups:
+        - cf
+      subnet: (( properties.template_only.aws.subnet_ids.cf2 ))
+  properties:
+    template_only:
+      aws:
+        access_key_id: <%= @PLACEHOLDER_ACCESS_KEY_ID %>
+        secret_access_key: <%= @PLACEHOLDER_SECRET_KEY %>
+        availability_zone: us-east-1a # Change this if you'd like to
+        availability_zone2: us-east-1b # Change this if you'd like to
+        subnet_ids:
+          cf1: <%= @PLACEHOLDER_SUBNET_FOR_AZ1 %>
+          cf2: <%= @PLACEHOLDER_SUBNET_FOR_AZ2 %>
+
+    domain: <%= @PLACEHOLDER_DOMAIN  %>
+
+    login:
+      uaa_certificate: <%= @PLACEHOLDER_UAA_CERT %>
+
+    nats:
+      user: <%= @PLACEHOLDER_NATS_USER %>
+      password: <%= @PLACEHOLDER_NATS_PASSWORD %>
+
+    cc:
+      db_encryption_key: <%= @PLACEHOLDER_CC_DB_ENCRYPTION_KEY %>
+      bulk_api_password: <%= @PLACEHOLDER_BULK_API_PASSWORD %>
+      staging_upload_password: <%= @PLACEHOLDER_STAGING_UPLOAD_PASSWORD  %>
+      staging_upload_user: <%= @PLACEHOLDER_STAGING_UPLOAD_USER %>
+
+    uaa:
+      scim:
+        users:
+        - admin|the_admin_pw|scim.write,scim.read,openid,cloud_controller.admin         #change if you like
+        - services|the_services_pw|scim.write,scim.read,openid,cloud_controller.admin   #change if you like
+      admin:
+        client_secret: <%= @PLACEHOLDER_UAA_ADMIN_CLIENT_SECRET %>
+      jwt:
+        signing_key: <%= @PLACEHOLDER_UAA_JWT_SIGNING_KEY  %> # Use the YAML "|" character to format multiline RSA key data
+        verification_key: <%= @PLACEHOLDER_UAA_JWT_VERIFICATION_KEY %> # Use the YAML "|" character to format multiline RSA key data
+      clients:
+        login:
+          secret: <%= @PLACEHOLDER_UAA_CLIENTS_LOGIN_SECRET %>
+        developer_console:
+          secret: <%= @PLACEHOLDER_UAA_CLIENTS_DEVELOPER_CONSOLE_SECRET %>
+        app-direct:
+          secret: <%= @PLACEHOLDER_UAA_CLIENTS_APP_DIRECT_SECRET %>
+        support-services:
+          secret: <%= @PLACEHOLDER_UAA_CLIENTS_SUPPORT_SERVICES_SECRET %>
+        servicesmgmt:
+          secret: <%= @PLACEHOLDER_UAA_CLIENTS_SERVICESMGMT_SECRET %>
+        space-mail:
+          secret: <%= @PLACEHOLDER_UAA_CLIENTS_SPACE_MAIL_SECRET %>
+        notifications:
+          secret: <%= @PLACEHOLDER_UAA_CLIENTS_NOTIFICATION_SECRET %>
+      batch:
+        username: <%= @PLACEHOLDER_UAA_BATCH_USERNAME %>
+        password: <%= @PLACEHOLDER_UAA_BATCH_PASSWORD %>
+      cc:
+        client_secret: <%= @PLACEHOLDER_UAA_CC_CLIENT_SECRET %>
+
+    uaadb: <%= @PLACEHOLDER_UAADB_PROPERTIES %>
+    ccdb: <%= @PLACEHOLDER_CCDB_PROPERTIES %>
+
+    router:
+      status:
+        user: <%= @PLACEHOLDER_ROUTER_STATUS_USER %>
+        password: <%= @PLACEHOLDER_ROUTER_STATUS_PASSWORD %>
+
+    dea_next:
+      disk_mb: 400001
+      memory_mb: 6656
+
+    loggregator_endpoint:
+      shared_secret: <%= @PLACEHOLDER_LOGGREGATOR_SECRET %>
+
+    ssl:
+      skip_cert_verify: false
+

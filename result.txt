@@ -1,0 +1,117 @@
+A is: 
+  ---
+  name: 
+  director_uuid: 
+  releases:
+    - name: cf
+      version: latest  
+  
+  networks:
+  - name: cf1
+  type: manual
+  subnets:
+  - range: 10.10.16.0/20
+    name: default_unused
+    reserved:
+    - 10.10.16.2 - 10.10.16.9
+    static:
+    - 10.10.16.10 - 10.10.16.253
+    gateway: 10.10.16.1
+    dns:
+    - 10.10.0.2
+    cloud_properties:
+      security_groups:
+      - cf
+      subnet: (( properties.template_only.aws.subnet_ids.cf1 ))
+  
+  - name: cf2
+    type: manual
+    subnets:
+    - range: 10.10.80.0/20
+      name: default_unused
+      reserved:
+      - 10.10.80.2 - 10.10.80.9
+      static:
+      - 10.10.80.10 - 10.10.80.253
+      gateway: 10.10.80.1
+      dns:
+      - 10.10.0.2
+      cloud_properties:
+        security_groups:
+        - cf
+      subnet: (( properties.template_only.aws.subnet_ids.cf2 ))
+  properties:
+    template_only:
+      aws:
+        access_key_id: 
+        secret_access_key: 
+        availability_zone: us-east-1a # Change this if you'd like to
+        availability_zone2: us-east-1b # Change this if you'd like to
+        subnet_ids:
+          cf1: 
+          cf2: 
+
+    domain: 
+
+    login:
+      uaa_certificate: 
+
+    nats:
+      user: 
+      password: Hello
+
+    cc:
+      db_encryption_key: 
+      bulk_api_password: 
+      staging_upload_password: 
+      staging_upload_user: 
+
+    uaa:
+      scim:
+        users:
+        - admin|the_admin_pw|scim.write,scim.read,openid,cloud_controller.admin         #change if you like
+        - services|the_services_pw|scim.write,scim.read,openid,cloud_controller.admin   #change if you like
+      admin:
+        client_secret: 
+      jwt:
+        signing_key:  # Use the YAML "|" character to format multiline RSA key data
+        verification_key:  # Use the YAML "|" character to format multiline RSA key data
+      clients:
+        login:
+          secret: 
+        developer_console:
+          secret: 
+        app-direct:
+          secret: 
+        support-services:
+          secret: 
+        servicesmgmt:
+          secret: 
+        space-mail:
+          secret: 
+        notifications:
+          secret: 
+      batch:
+        username: 
+        password: 
+      cc:
+        client_secret: 
+
+    uaadb: 
+    ccdb: 
+
+    router:
+      status:
+        user: 
+        password: 
+
+    dea_next:
+      disk_mb: 400001
+      memory_mb: 6656
+
+    loggregator_endpoint:
+      shared_secret: 
+
+    ssl:
+      skip_cert_verify: false
+
