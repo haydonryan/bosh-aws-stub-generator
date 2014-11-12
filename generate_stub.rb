@@ -10,7 +10,7 @@ require 'yaml'
 #
 
 placeholders = {
-"placeholder_name"                                 => "hnrglobal",    # The Name of the Cloud Foundry install
+#"placeholder_name"                                 => "hnrglobal",    # The Name of the Cloud Foundry install --- now taken from command line arg
 #"placeholder_domain"                               => "cloud.hnrglobal.com",             # domain ie cloud.example.com
 #"placeholder_director_uuid"                        => "",             # The director UUID - run 'bosh status' to get the UUID
 #"placeholder_subnet_for_cf1"                       => "todo",
