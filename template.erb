@@ -39,19 +39,25 @@
         security_groups:
         - cf
       subnet: (( properties.template_only.aws.subnet_ids.cf2 ))
+
   properties:
     template_only:
       aws:
         access_key_id: <%= placeholder_access_key_id %>
         secret_access_key: <%= placeholder_secret_key %>
-        availability_zone: us-east-1a # Change this if you'd like to
-        availability_zone2: us-east-1b # Change this if you'd like to
+        availability_zone: <%= placeholder_aws_az1 %>
+        availability_zone2: <%= placeholder_aws_az2 %>
+us-east-1b # Change this if you'd like to
         subnet_ids:
           cf1: <%= placeholder_subnet_for_az1 %>
           cf2: <%= placeholder_subnet_for_az2 %>
 
     domain: <%= placeholder_domain  %>
 
+    cloud_controller_admin_credentials:
+      username: admin 
+      password: <%= placeholder_cloud_controler_admin_password %>
+  
     login:
       uaa_certificate: <%= placeholder_uaa_cert %>
 
@@ -79,26 +85,51 @@
     uaa:
       scim:
         users:
-        - admin|the_admin_pw|scim.write,scim.read,openid,cloud_controller.admin         #change if you like
-        - services|the_services_pw|scim.write,scim.read,openid,cloud_controller.admin   #change if you like
+        - admin|<%= placeholder_scim_admin_password %>|scim.write,scim.read,openid,cloud_controller.admin         #change if you like
+        - services|<%= placeholder_scim_services_password %>|scim.write,scim.read,openid,cloud_controller.admin   #change if you like
       admin:
         client_secret: <%= placeholder_uaa_admin_client_secret %>
       jwt:
-        signing_key: <%= placeholder_uaa_jwt_signing_key  %> # Use the YAML "|" character to format multiline RSA key data
-        verification_key: <%= placeholder_uaa_jwt_verification_key %> # Use the YAML "|" character to format multiline RSA key data
+        signing_key: <%= placeholder_uaa_jwt_signing_key  %>
+        verification_key: <%= placeholder_uaa_jwt_verification_key %>
       clients:
         login:
+          authorities: scim.write,scim.read,cloud_controller.read,cloud_controller.write,password.write,uaa.admin,uaa.resource,cloud_controller.admin,billing.admin
+          authorized-grant-types: authorization_code,client_credentials,refresh_token        
+          override: true
+          redirect-uri: https://login.cloud.pcfdev.com
+          scope: openid,oauth,approvals
           secret: <%= placeholder_uaa_clients_login_secret %>
         developer_console:
+          access-token-validity: 1209600
+          authorities: scim.write,scim.read,cloud_controller.read,cloud_controller.write,password.write,uaa.admin,uaa.resource,cloud_controller.admin,billing.admin
+          authorized-grant-types: authorization_code,client_credentials
+          override: true
+          redirect-uri: https://console.cloud.pcfdev.com/oauth/callback
+          refresh-token-validity: 1209600
+          scope: openid,cloud_controller.read,cloud_controller.write,password.write,console.admin,console.support
           secret: <%= placeholder_uaa_clients_developer_console_secret %>
         app-direct:
+          access-token-validity: 1209600
+          authorities: app_direct_invoice.write
+          authorized-grant-types: authorization_code,client_credentials,password,refresh_token,implicit
+          override: true
+          redirect-uri: https://console.cloud.pcfdev.com
+          refresh-token-validity: 1209600 
           secret: <%= placeholder_uaa_clients_app_direct_secret %>
         support-services:
           secret: <%= placeholder_uaa_clients_support_services_secret %>
         servicesmgmt:
           secret: <%= placeholder_uaa_clients_servicesmgmt_secret %>
         space-mail:
+          access-token-validity: 1209600
+          authorities: scim.read,scim.write,cloud_controller.admin
+          authorized-grant-types: client_credentials
+          override: true
+          refresh-token-validity: 1209600
           secret: <%= placeholder_uaa_clients_space_mail_secret %>
+        doppler:
+          secret: <%= placeholder_doppler_secret %>
         notifications:
           secret: <%= placeholder_uaa_clients_notification_secret %>
       batch:
@@ -125,3 +156,13 @@
     ssl:
       skip_cert_verify: false
 
+    acceptance_tests:
+        api: api.<%= placeholder_domain %>
+        apps_domain: <%= placeholder_domain %>
+        admin_user: admin
+        admin_password: <%= placeholder_scim_admin_password %>
+        nodes: 4
+        skip_ssl_validation: true
+    meta:
+      fog_config:
+        region: <%= placeholder_aws_region %>
