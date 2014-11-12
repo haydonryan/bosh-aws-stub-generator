@@ -1,6 +1,6 @@
 ---
   name: <%= placeholder_name %>
-  director_uuid: <%= @placeholder_director_uuid %>
+  director_uuid: <%= placeholder_director_uuid %>
   releases:
     - name: cf
       version: latest  
@@ -42,28 +42,28 @@
   properties:
     template_only:
       aws:
-        access_key_id: <%= @placeholder_access_key_id %>
-        secret_access_key: <%= @placeholder_secret_key %>
+        access_key_id: <%= placeholder_access_key_id %>
+        secret_access_key: <%= placeholder_secret_key %>
         availability_zone: us-east-1a # Change this if you'd like to
         availability_zone2: us-east-1b # Change this if you'd like to
         subnet_ids:
-          cf1: <%= @placeholder_subnet_for_az1 %>
-          cf2: <%= @placeholder_subnet_for_az2 %>
+          cf1: <%= placeholder_subnet_for_az1 %>
+          cf2: <%= placeholder_subnet_for_az2 %>
 
-    domain: <%= @placeholder_domain  %>
+    domain: <%= placeholder_domain  %>
 
     login:
-      uaa_certificate: <%= @placeholder_uaa_cert %>
+      uaa_certificate: <%= placeholder_uaa_cert %>
 
     nats:
-      user: <%= @placeholder_nats_user %>
-      password: <%= @placeholder_nats_password %>
+      user: <%= placeholder_nats_user %>
+      password: <%= placeholder_nats_password %>
 
     cc:
-      db_encryption_key: <%= @placeholder_cc_db_encryption_key %>
-      bulk_api_password: <%= @placeholder_bulk_api_password %>
-      staging_upload_password: <%= @placeholder_staging_upload_password  %>
-      staging_upload_user: <%= @placeholder_staging_upload_user %>
+      db_encryption_key: <%= placeholder_cc_db_encryption_key %>
+      bulk_api_password: <%= placeholder_bulk_api_password %>
+      staging_upload_password: <%= placeholder_staging_upload_password  %>
+      staging_upload_user: <%= placeholder_staging_upload_user %>
 
     uaa:
       scim:
@@ -71,44 +71,44 @@
         - admin|the_admin_pw|scim.write,scim.read,openid,cloud_controller.admin         #change if you like
         - services|the_services_pw|scim.write,scim.read,openid,cloud_controller.admin   #change if you like
       admin:
-        client_secret: <%= @placeholder_uaa_admin_client_secret %>
+        client_secret: <%= placeholder_uaa_admin_client_secret %>
       jwt:
-        signing_key: <%= @placeholder_uaa_jwt_signing_key  %> # Use the YAML "|" character to format multiline RSA key data
-        verification_key: <%= @placeholder_uaa_jwt_verification_key %> # Use the YAML "|" character to format multiline RSA key data
+        signing_key: <%= placeholder_uaa_jwt_signing_key  %> # Use the YAML "|" character to format multiline RSA key data
+        verification_key: <%= placeholder_uaa_jwt_verification_key %> # Use the YAML "|" character to format multiline RSA key data
       clients:
         login:
-          secret: <%= @placeholder_uaa_clients_login_secret %>
+          secret: <%= placeholder_uaa_clients_login_secret %>
         developer_console:
-          secret: <%= @placeholder_uaa_clients_developer_console_secret %>
+          secret: <%= placeholder_uaa_clients_developer_console_secret %>
         app-direct:
-          secret: <%= @placeholder_uaa_clients_app_direct_secret %>
+          secret: <%= placeholder_uaa_clients_app_direct_secret %>
         support-services:
-          secret: <%= @placeholder_uaa_clients_support_services_secret %>
+          secret: <%= placeholder_uaa_clients_support_services_secret %>
         servicesmgmt:
-          secret: <%= @placeholder_uaa_clients_servicesmgmt_secret %>
+          secret: <%= placeholder_uaa_clients_servicesmgmt_secret %>
         space-mail:
-          secret: <%= @placeholder_uaa_clients_space_mail_secret %>
+          secret: <%= placeholder_uaa_clients_space_mail_secret %>
         notifications:
-          secret: <%= @placeholder_uaa_clients_notification_secret %>
+          secret: <%= placeholder_uaa_clients_notification_secret %>
       batch:
-        username: <%= @placeholder_uaa_batch_username %>
-        password: <%= @placeholder_uaa_batch_password %>
+        username: <%= placeholder_uaa_batch_username %>
+        password: <%= placeholder_uaa_batch_password %>
       cc:
-        client_secret: <%= @placeholder_uaa_cc_client_secret %>
+        client_secret: <%= placeholder_uaa_cc_client_secret %>
 
-    uaadb: <%= @placeholder_uaadb_properties %>
-    ccdb: <%= @placeholder_ccdb_properties %>
+    uaadb: <%= placeholder_uaadb_properties %>
+    ccdb: <%= placeholder_ccdb_properties %>
 
     router:
       status:
-        user: <%= @placeholder_router_status_user %>
-        password: <%= @placeholder_router_status_password %>
+        user: <%= placeholder_router_status_user %>
+        password: <%= placeholder_router_status_password %>
 
     dea_next:
       disk_mb: 400001
       memory_mb: 6656
 
-      loggregator_endpoint: <%= bar %>
+    loggregator_endpoint: <%= bar %>
       shared_secret: <%= placeholder_loggregator_secret %>
 
     ssl:
