@@ -1,6 +1,9 @@
 # Cloud Foundry - BOSH deployment Stub Generator for AWS
 
 ## Introduction
+This tool is used for generating a bosh stub file after you have run bosh aws
+boostrap micro. It automates the generation of the inital stub.
+
 Making the correct changes to the stub and generating secure passwords is
 annoying.  This ruby script automates as much as possible.
 
