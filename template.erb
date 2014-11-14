@@ -153,7 +153,7 @@ properties:
     shared_secret: <%= placeholder_loggregator_secret %>
 
   ssl:
-    skip_cert_verify: false
+    skip_cert_verify: <%= placeholder_skip_cert_verify %>
 
   acceptance_tests:
     api: api.<%= placeholder_domain %>
