@@ -96,7 +96,7 @@ properties:
         authorities: scim.write,scim.read,cloud_controller.read,cloud_controller.write,password.write,uaa.admin,uaa.resource,cloud_controller.admin,billing.admin
         authorized-grant-types: authorization_code,client_credentials,refresh_token        
         override: true
-        redirect-uri: https://login.cloud.pcfdev.com
+        redirect-uri: https://login.<%= placeholder_domain  %>
         scope: openid,oauth,approvals
         secret: <%= placeholder_uaa_clients_login_secret %>
       developer_console:
@@ -104,7 +104,7 @@ properties:
         authorities: scim.write,scim.read,cloud_controller.read,cloud_controller.write,password.write,uaa.admin,uaa.resource,cloud_controller.admin,billing.admin
         authorized-grant-types: authorization_code,client_credentials
         override: true
-        redirect-uri: https://console.cloud.pcfdev.com/oauth/callback
+        redirect-uri: https://console.cloud.<%= placeholder_domain  %>
         refresh-token-validity: 1209600
         scope: openid,cloud_controller.read,cloud_controller.write,password.write,console.admin,console.support
         secret: <%= placeholder_uaa_clients_developer_console_secret %>
@@ -113,7 +113,7 @@ properties:
         authorities: app_direct_invoice.write
         authorized-grant-types: authorization_code,client_credentials,password,refresh_token,implicit
         override: true
-        redirect-uri: https://console.cloud.pcfdev.com
+        redirect-uri: https://console.<%= placeholder_domain  %>
         refresh-token-validity: 1209600 
         secret: <%= placeholder_uaa_clients_app_direct_secret %>
       support-services:
