@@ -21,7 +21,7 @@ placeholders = {
 #"placeholder_subnet_for_az1"                       => '',             # Get this value from AWS Console ie subnet-679a7c10
 #"placeholder_subnet_for_az2"                       => '',             # Get this value from AWS Console ie subnet-679a7c10
 "placeholder_uaa_cert"                              => 'null', 
-"plceholder_skip_cert_verify"                       => 'false'        # Default to false
+"placeholder_skip_cert_verify"                       => 'false'        # Default to false
 #"placeholder_uaa_jwt_signing_key"                  => '',              # Use the YAML "|" character to format multiline RSA key data
 #"placeholder_uaa_jwt_verification_key"             => '',              # Use the YAML "|" character to format multiline RSA key data
 #"placeholder_uaadb_properties"                     => '',             # get from aws_rds_receipt.yml
@@ -152,7 +152,7 @@ if ( ARGV[1] == "true" )
 #  uaadb_fragment = uaadb_fragment.gsub(/(\n      )$/,"")            #remove errant whitespace at the end of the sub
 
 
-placeholders["plceholder_skip_cert_verify"] = "true"
+placeholders["placeholder_skip_cert_verify"] = "true"
 
 
 end
