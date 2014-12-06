@@ -2,3 +2,4 @@ aws_rds_bosh_receipt.yml
 aws_rds_receipt.yml
 aws_route53_receipt.yml
 aws_vpc_receipt.yml
+.idea/
