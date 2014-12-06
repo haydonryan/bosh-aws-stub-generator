@@ -120,8 +120,8 @@ aws_vpc = YAML.load_file('aws_vpc_receipt.yml')
 aws = aws_vpc["aws"]
 vpc = aws_vpc["vpc"]
 placeholders["placeholder_aws_region"] = aws["region"]
-placeholders["placeholder_aws_az1"] = aws["region"]+"a"  #hack regions in now assuming a and b
-placeholders["placeholder_aws_az2"] = aws["region"]+"b"
+placeholders["placeholder_aws_az1"] = ENV['BOSH_VPC_PRIMARY_AZ'] || aws["region"]+"a"  #hack regions in now assuming a and b
+placeholders["placeholder_aws_az2"] = ENV['BOSH_VPC_SECONDARY_AZ'] ||aws["region"]+"b"
 placeholders["placeholder_access_key_id"] = aws["access_key_id"]
 placeholders["placeholder_secret_key"] = aws["secret_access_key"] 
 
